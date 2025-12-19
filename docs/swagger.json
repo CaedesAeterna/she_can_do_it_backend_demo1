@@ -1,0 +1,416 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/status": {
+      "get": {
+        "operationId": "AppController_getStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/users": {
+      "post": {
+        "operationId": "UsersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The user has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden."
+          }
+        },
+        "summary": "Create user",
+        "tags": [
+          "users"
+        ]
+      },
+      "get": {
+        "operationId": "UsersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Return all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all users",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
+          }
+        },
+        "summary": "Get user by id",
+        "tags": [
+          "users"
+        ]
+      },
+      "delete": {
+        "operationId": "UsersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted."
+          }
+        },
+        "summary": "Delete user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/tasks": {
+      "post": {
+        "operationId": "TasksController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The task has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new task",
+        "tags": [
+          "tasks"
+        ]
+      },
+      "get": {
+        "operationId": "TasksController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Return all tasks.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all tasks",
+        "tags": [
+          "tasks"
+        ]
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "operationId": "TasksController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the task.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found."
+          }
+        },
+        "summary": "Get a task by id",
+        "tags": [
+          "tasks"
+        ]
+      },
+      "delete": {
+        "operationId": "TasksController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task deleted."
+          }
+        },
+        "summary": "Delete a task",
+        "tags": [
+          "tasks"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "She Can Do It API",
+    "description": "The She Can Do It API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "users",
+      "description": ""
+    },
+    {
+      "name": "tasks",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "alice@example.com",
+            "description": "The email of the user"
+          },
+          "password": {
+            "type": "string",
+            "example": "securepass1",
+            "description": "The password of the user"
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Alice",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Smith",
+            "description": "The last name of the user"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "first_name",
+          "last_name"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The unique identifier of the user"
+          },
+          "email": {
+            "type": "string",
+            "example": "alice@example.com",
+            "description": "The email of the user"
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Alice",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Smith",
+            "description": "The last name of the user"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2023-10-27T10:00:00.000Z",
+            "description": "Creation timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "first_name",
+          "last_name",
+          "created_at"
+        ]
+      },
+      "CreateTaskDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Setup Project",
+            "description": "The title of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Initialize the NestJS app",
+            "description": "The description of the task"
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the user who owns this task"
+          }
+        },
+        "required": [
+          "title",
+          "user_id"
+        ]
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The unique identifier of the task"
+          },
+          "title": {
+            "type": "string",
+            "example": "Setup Project",
+            "description": "The title of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Initialize the NestJS app",
+            "description": "The description of the task"
+          },
+          "status": {
+            "type": "string",
+            "example": "pending",
+            "description": "The status of the task"
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the user who owns this task"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2023-10-27T10:00:00.000Z",
+            "description": "Creation timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "status",
+          "user_id",
+          "created_at"
+        ]
+      }
+    }
+  }
+}

@@ -1,7 +1,9 @@
-# She Can Do It - Backend API
+# She Can Do It - Backend API demo1
 
 This is a **NestJS** application using **Knex** (with PostgreSQL) for the database layer.
 It includes comprehensive documentation for both the external API (Swagger) and the internal project structure (Compodoc).
+
+
 
 ## 🚀 Features
 
@@ -16,18 +18,42 @@ It includes comprehensive documentation for both the external API (Swagger) and 
 
 ## 🛠️ Setup & Installation
 
-1.  **Install Dependencies**
+1.  **Environment Configuration**
+    The project requires a `.env` file to configure local paths (and keep your secrets safe).
+    
+    ```bash
+    # Copy the example file
+    cp .env.example .env
+    
+    # Edit .env to set your desired database storage path
+    # DB_VOLUME_PATH=./data-postgres
+    ```
+
+2.  **Install Dependencies**
     ```bash
     npm install
     ```
 
-2.  **Database Setup**
-    The application defaults to a local Postgres instance:
-    `postgres://postgres:postgres@localhost:5432/postgres`
+3.  **Database Setup (Docker)**
 
-    To override this, set the `DATABASE_URL` environment variable.
+    **Linux / macOS:**
+    ```bash
+    docker-compose up -d
+    ```
 
-3.  **Run the Application**
+    **Windows (PowerShell):**
+    ```powershell
+    docker-compose up -d
+    ```
+    *Note: Ensure your Docker Desktop is running. If you encounter volume path issues on Windows, use absolute paths in your .env file like `C:/Users/You/data`.*
+
+    **Run without .env (Default):**
+    If you don't want to use a custom path, you can run:
+    ```bash
+    DB_VOLUME_PATH=./postgres-data docker-compose up -d
+    ```
+
+4.  **Run the Application**
     ```bash
     # development
     npm run start:dev

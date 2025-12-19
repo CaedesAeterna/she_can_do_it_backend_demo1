@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, NotFoundException, Patch } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task.model';
 import { CreateTaskDto } from '../models/create-task.dto';
+import { UpdateTaskDto } from '../models/update-task.dto';
 
 @ApiTags('tasks')
 @Controller('tasks')
@@ -29,6 +30,18 @@ export class TasksController {
   @ApiResponse({ status: 404, description: 'Task not found.' })
   async findOne(@Param('id') id: string): Promise<Task> {
     const task = await this.tasksService.findOne(+id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+    return task;
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update a task' })
+  @ApiResponse({ status: 200, description: 'The task has been successfully updated.', type: Task })
+  @ApiResponse({ status: 404, description: 'Task not found.' })
+  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto): Promise<Task> {
+    const task = await this.tasksService.update(+id, updateTaskDto);
     if (!task) {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }

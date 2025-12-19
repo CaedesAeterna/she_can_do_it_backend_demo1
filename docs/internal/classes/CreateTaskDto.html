@@ -159,14 +159,19 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Optional</span>
                                 <a href="#description" >description</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#title" >title</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#user_id" >user_id</a>
                             </li>
@@ -196,6 +201,8 @@
                     <a name="description"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Optional</span>
                         <span ><b>description</b></span>
                         <a href="#description"><span class="icon ion-ios-link"></span></a>
@@ -213,13 +220,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;Initialize the NestJS app&#x27;, description: &#x27;The description of the task&#x27;, required: false})<br />
+                            @ApiProperty({example: &#x27;Initialize the NestJS app&#x27;, description: &#x27;The description of the task&#x27;, required: false})<br />@IsOptional()<br />@IsString()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/create-task.dto.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/create-task.dto.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -232,6 +239,8 @@
                 <td class="col-md-4">
                     <a name="title"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>title</b></span>
                         <a href="#title"><span class="icon ion-ios-link"></span></a>
@@ -249,13 +258,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;Setup Project&#x27;, description: &#x27;The title of the task&#x27;})<br />
+                            @ApiProperty({example: &#x27;Setup Project&#x27;, description: &#x27;The title of the task&#x27;})<br />@IsString()<br />@IsNotEmpty()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/models/create-task.dto.ts:5</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/create-task.dto.ts:8</a></div>
                         </td>
                     </tr>
 
@@ -268,6 +277,7 @@
                 <td class="col-md-4">
                     <a name="user_id"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>user_id</b></span>
                         <a href="#user_id"><span class="icon ion-ios-link"></span></a>
@@ -285,13 +295,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: 1, description: &#x27;The ID of the user who owns this task&#x27;})<br />
+                            @ApiProperty({example: 1, description: &#x27;The ID of the user who owns this task&#x27;})<br />@IsNumber()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/create-task.dto.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/create-task.dto.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -311,15 +321,21 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsString, IsNotEmpty, IsOptional, IsNumber } from &#x27;class-validator&#x27;;
 
 export class CreateTaskDto {
   @ApiProperty({ example: &#x27;Setup Project&#x27;, description: &#x27;The title of the task&#x27; })
+  @IsString()
+  @IsNotEmpty()
   title: string;
 
   @ApiProperty({ example: &#x27;Initialize the NestJS app&#x27;, description: &#x27;The description of the task&#x27;, required: false })
+  @IsOptional()
+  @IsString()
   description?: string;
 
   @ApiProperty({ example: 1, description: &#x27;The ID of the user who owns this task&#x27; })
+  @IsNumber()
   user_id: number;
 }
 </code></pre>

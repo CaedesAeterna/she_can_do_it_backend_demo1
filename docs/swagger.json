@@ -143,6 +143,40 @@
         ]
       }
     },
+    "/users/{id}/tasks": {
+      "get": {
+        "operationId": "UsersController_getTasks",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return user tasks.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get tasks for a user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
     "/tasks": {
       "post": {
         "operationId": "TasksController_create",
@@ -227,6 +261,48 @@
           }
         },
         "summary": "Get a task by id",
+        "tags": [
+          "tasks"
+        ]
+      },
+      "patch": {
+        "operationId": "TasksController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The task has been successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found."
+          }
+        },
+        "summary": "Update a task",
         "tags": [
           "tasks"
         ]
@@ -343,30 +419,6 @@
           "created_at"
         ]
       },
-      "CreateTaskDto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "example": "Setup Project",
-            "description": "The title of the task"
-          },
-          "description": {
-            "type": "string",
-            "example": "Initialize the NestJS app",
-            "description": "The description of the task"
-          },
-          "user_id": {
-            "type": "number",
-            "example": 1,
-            "description": "The ID of the user who owns this task"
-          }
-        },
-        "required": [
-          "title",
-          "user_id"
-        ]
-      },
       "Task": {
         "type": "object",
         "properties": {
@@ -410,6 +462,55 @@
           "user_id",
           "created_at"
         ]
+      },
+      "CreateTaskDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Setup Project",
+            "description": "The title of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Initialize the NestJS app",
+            "description": "The description of the task"
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the user who owns this task"
+          }
+        },
+        "required": [
+          "title",
+          "user_id"
+        ]
+      },
+      "UpdateTaskDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Buy Groceries",
+            "description": "The title of the task"
+          },
+          "description": {
+            "type": "string",
+            "example": "Milk, Eggs, Bread",
+            "description": "The description of the task"
+          },
+          "status": {
+            "type": "string",
+            "example": "completed",
+            "description": "The status of the task",
+            "enum": [
+              "pending",
+              "in_progress",
+              "completed"
+            ]
+          }
+        }
       }
     }
   }

@@ -4,6 +4,8 @@ import { KNEX_CONNECTION } from '../common/knex/knex.constants';
 import { Task } from '../models/task.model';
 import { CreateTaskDto } from '../models/create-task.dto';
 
+import { UpdateTaskDto } from '../models/update-task.dto';
+
 @Injectable()
 export class TasksService {
   constructor(@Inject(KNEX_CONNECTION) private readonly knex: Knex) {}
@@ -16,8 +18,20 @@ export class TasksService {
     return this.knex('tasks').where({ id }).first();
   }
 
+  async findByUser(userId: number): Promise<Task[]> {
+    return this.knex('tasks').where({ user_id: userId }).select('*');
+  }
+
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const [task] = await this.knex('tasks').insert(createTaskDto).returning('*');
+    return task;
+  }
+
+  async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    const [task] = await this.knex('tasks')
+      .where({ id })
+      .update(updateTaskDto)
+      .returning('*');
     return task;
   }
 

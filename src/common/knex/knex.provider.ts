@@ -7,7 +7,7 @@ export const knexProvider: FactoryProvider = {
   useFactory: async () => {
     return knex({
       client: 'pg',
-      connection: process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres',
+      connection: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5433/she_can_do_it_db',
       searchPath: ['public'],
     });
   },

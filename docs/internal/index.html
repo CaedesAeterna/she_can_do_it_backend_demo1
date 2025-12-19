@@ -134,11 +134,12 @@ npm run start:dev</code></pre></div><p><em>The app will automatically create the
 <p>Once the app is running, visit:
 👉 <strong><a href="http://localhost:3000/api">http://localhost:3000/api</a></strong></p>
 <p>To generate a static HTML file of the API docs:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Generates api-docs.html in the root
-npx redoc-cli bundle swagger.json -o api-docs.html</code></pre></div><h3>2. Project Documentation (Compodoc)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Generates docs/api-docs.html
+npm run docs:api</code></pre></div><h3>2. Project Documentation (Compodoc)</h3>
 <p>To generate and serve the internal project documentation (Modules, Services, Graphs):</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run documentation</code></pre></div><p>Then visit: <strong><a href="http://localhost:8080">http://localhost:8080</a></strong></p>
-<h2>📂 Project Structure</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Generates into docs/internal/ and serves on port 8080
+npm run docs:internal</code></pre></div><h3>3. Update All Docs</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run docs:update</code></pre></div><h2>📂 Project Structure</h2>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-none">src/
 ├── common/
 │   └── knex/           # Global Knex module &amp; migration service

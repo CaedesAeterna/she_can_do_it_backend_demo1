@@ -19,14 +19,17 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docs:internal": "npx @compodoc/compodoc -p tsconfig.json -s -d docs/internal",
-    "docs:api": "ts-node scripts/generate-swagger.ts && npx redoc-cli bundle docs/swagger.json -o docs/api-docs.html",
-    "docs:update": "npm run docs:internal & npm run docs:api"
+    "docs:api": "ts-node scripts/generate-swagger.ts && npx @redocly/cli build-docs docs/swagger.json -o docs/api-docs.html",
+    "docs:update": "npm run docs:internal & npm run docs:api",
+    "seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
     "knex": "^3.1.0",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",

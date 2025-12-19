@@ -1,13 +1,18 @@
 import { Controller, Get, Post, Body, Param, Delete, NotFoundException } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from '../services/users.service';
+import { TasksService } from '../services/tasks.service';
 import { User } from '../models/user.model';
+import { Task } from '../models/task.model';
 import { CreateUserDto } from '../models/create-user.dto';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly tasksService: TasksService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create user' })
@@ -34,6 +39,13 @@ export class UsersController {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
+  }
+
+  @Get(':id/tasks')
+  @ApiOperation({ summary: 'Get tasks for a user' })
+  @ApiResponse({ status: 200, description: 'Return user tasks.', type: [Task] })
+  async getTasks(@Param('id') id: string): Promise<Task[]> {
+    return this.tasksService.findByUser(+id);
   }
 
   @Delete(':id')
